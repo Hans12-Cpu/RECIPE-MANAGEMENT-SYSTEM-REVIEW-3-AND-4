@@ -1,0 +1,19 @@
+RecipeManagementSystem/
+│
+├── src/
+│   ├── dao/                      # Data Access Object (DAO) Layer
+│   ├── model/                    # Model classes (Data Objects)
+│   ├── servlet/                  # Servlet classes (Controller layer)
+│   ├── service/                  # Service Layer (Business Logic)
+│   ├── util/                     # Utility classes (e.g., DB connection)
+│   └── web/                      # Web resources (JSP, CSS, JS)
+│       ├── WEB-INF/
+│       │   ├── lib/              # Libraries (JAR files)
+│       │   ├── classes/          # Compiled Java classes
+│       │   ├── jsp/              # JSP files (views)
+│       │   └── web.xml           # Web configuration file (Deployment descriptor)
+│       └── index.jsp             # Entry point JSP
+├── lib/                          # External libraries (third-party JARs)
+├── pom.xml                       # Maven configuration file (for dependencies)
+├── .gitignore                    # Git ignore configuration
+└── README.md                     # Project documentation

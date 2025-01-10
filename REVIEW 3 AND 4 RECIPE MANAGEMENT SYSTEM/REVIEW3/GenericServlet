@@ -1,0 +1,6 @@
+@WebServlet("/recipe")
+public class RecipeServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Handling GET requests
+    }
+}

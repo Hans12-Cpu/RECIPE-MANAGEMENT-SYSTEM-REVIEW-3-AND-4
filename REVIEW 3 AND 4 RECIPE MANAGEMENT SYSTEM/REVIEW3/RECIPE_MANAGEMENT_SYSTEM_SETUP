@@ -1,0 +1,26 @@
+RecipeManagementSystem/
+│
+├── src/
+│   ├── dao/
+│   │   ├── RecipeDAO.java
+│   │   └── UserDAO.java
+│   ├── model/
+│   │   ├── Recipe.java
+│   │   └── User.java
+│   ├── service/
+│   │   ├── RecipeService.java
+│   │   └── UserService.java
+│   └── servlet/
+│       ├── RecipeServlet.java
+│       └── UserServlet.java
+├── WebContent/
+│   ├── WEB-INF/
+│   │   └── web.xml
+│   ├── jsp/
+│   │   ├── register.jsp
+│   │   ├── login.jsp
+│   │   ├── profile.jsp
+│   │   └── recipeList.jsp
+│   └── index.jsp
+└── lib/
+    └── (JAR files, such as MySQL Connector, JSTL, etc.)

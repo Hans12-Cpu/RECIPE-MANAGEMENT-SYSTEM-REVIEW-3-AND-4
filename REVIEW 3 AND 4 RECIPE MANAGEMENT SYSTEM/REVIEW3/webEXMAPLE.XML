@@ -1,0 +1,32 @@
+<!-- RecipeFormServlet -->
+<servlet>
+    <servlet-name>RecipeFormServlet</servlet-name>
+    <servlet-class>com.example.recipemanager.controller.RecipeFormServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>RecipeFormServlet</servlet-name>
+    <url-pattern>/recipe-form</url-pattern>
+</servlet-mapping>
+
+<!-- RecipeDeleteServlet -->
+<servlet>
+    <servlet-name>RecipeDeleteServlet</servlet-name>
+    <servlet-class>com.example.recipemanager.controller.RecipeDeleteServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>RecipeDeleteServlet</servlet-name>
+    <url-pattern>/recipe-delete</url-pattern>
+</servlet-mapping>
+
+<!-- RecipeDetailServlet -->
+<servlet>
+    <servlet-name>RecipeDetailServlet</servlet-name>
+    <servlet-class>com.example.recipemanager.controller.RecipeDetailServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+</servlet>
+<servlet-mapping>
+    <servlet-name>RecipeDetailServlet</servlet-name>
+    <url-pattern>/recipe-detail</url-pattern>
+</servlet-mapping>

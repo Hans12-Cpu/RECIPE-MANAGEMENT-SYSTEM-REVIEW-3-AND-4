@@ -1,0 +1,68 @@
+-- 1. Create the Database
+CREATE DATABASE IF NOT EXISTS recipe_management;
+
+-- 2. Use the Database
+USE recipe_management;
+
+-- 3. Create the Users Table
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incrementing primary key for user ID
+    username VARCHAR(50) NOT NULL UNIQUE,  -- Unique username
+    password VARCHAR(50) NOT NULL,  -- Password for the user
+    email VARCHAR(100) NOT NULL  -- Email address
+);
+
+-- 4. Create the Recipes Table
+CREATE TABLE IF NOT EXISTS recipes (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Auto-incrementing primary key for recipe ID
+    title VARCHAR(100) NOT NULL,  -- Title of the recipe
+    ingredients TEXT NOT NULL,  -- Ingredients required for the recipe
+    instructions TEXT NOT NULL,  -- Instructions for preparing the recipe
+    user_id INT,  -- Foreign key referencing the users table
+    FOREIGN KEY (user_id) REFERENCES users(id)  -- Foreign key constraint
+);
+
+-- 5. Insert Sample Data into Users Table
+INSERT INTO users (username, password, email) VALUES 
+('john_doe', 'password123', 'john@example.com'),
+('jane_smith', 'securepass', 'jane@example.com');
+
+-- 6. Insert Sample Data into Recipes Table
+INSERT INTO recipes (title, ingredients, instructions, user_id) VALUES 
+('Pasta Carbonara', 'Pasta, Eggs, Bacon, Parmesan Cheese, Garlic, Olive Oil', 
+ '1. Boil pasta. 2. Cook bacon. 3. Mix eggs and cheese. 4. Combine all ingredients.', 1),
+('Chocolate Cake', 'Flour, Cocoa Powder, Sugar, Eggs, Butter, Baking Powder', 
+ '1. Preheat oven. 2. Mix ingredients. 3. Bake for 30 minutes.', 2);
+
+-- 7. Query: Get All Recipes with User Information
+SELECT r.id, r.title, r.ingredients, r.instructions, u.username
+FROM recipes r
+JOIN users u ON r.user_id = u.id;
+
+-- 8. Query: Get Recipes of a Specific User (e.g., user with id=1)
+SELECT r.id, r.title, r.ingredients, r.instructions
+FROM recipes r
+WHERE r.user_id = 1;
+
+-- 9. Update: Change User's Email Address
+UPDATE users
+SET email = 'new_email@example.com'
+WHERE id = 1;
+
+-- 10. Update: Change Recipe Instructions
+UPDATE recipes
+SET instructions = '1. Preheat oven to 350°F. 2. Mix ingredients. 3. Bake for 40 minutes.'
+WHERE id = 1;
+
+-- 11. Delete: Delete a Recipe by Recipe ID (e.g., recipe with id=1)
+DELETE FROM recipes WHERE id = 1;
+
+-- 12. Delete: Delete a User by User ID (e.g., user with id=2)
+DELETE FROM users WHERE id = 2;
+
+-- 13. Drop Tables (if you want to drop the tables at the end of testing)
+-- DROP TABLE recipes;
+-- DROP TABLE users;
+
+-- 14. Drop Database (if you want to drop the entire database at the end of testing)
+-- DROP DATABASE recipe_management;
