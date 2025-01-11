@@ -1,0 +1,72 @@
+import java.util.List;
+import java.util.Map;
+
+// Custom annotation for recipe metadata
+@interface RecipeInfo {
+    String author();
+    String date();
+    String version();
+}
+
+// Recipe class
+@RecipeInfo(author = "John Doe", date = "2025-01-11", version = "1.0")
+public class Recipe {
+    private String name;
+    private Map<String, String> ingredients; // Ingredient name -> Quantity
+    private List<String> steps;
+    private int prepTime; // in minutes
+
+    // Constructor
+    public Recipe(String name, Map<String, String> ingredients, List<String> steps, int prepTime) {
+        this.name = name;
+        this.ingredients = ingredients;
+        this.steps = steps;
+        this.prepTime = prepTime;
+    }
+
+    // Getters and Setters
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Map<String, String> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(Map<String, String> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
+    }
+
+    public int getPrepTime() {
+        return prepTime;
+    }
+
+    public void setPrepTime(int prepTime) {
+        this.prepTime = prepTime;
+    }
+
+    // Method to display the recipe
+    public void displayRecipe() {
+        System.out.println("Recipe Name: " + name);
+        System.out.println("Ingredients:");
+        ingredients.forEach((ingredient, quantity) -> 
+            System.out.println("  - " + ingredient + ": " + quantity));
+        System.out.println("Steps:");
+        for (int i = 0; i < steps.size(); i++) {
+            System.out.println("  Step " + (i + 1) + ": " + steps.get(i));
+        }
+        System.out.println("Preparation Time: " + prepTime + " minutes");
+    }
+}
