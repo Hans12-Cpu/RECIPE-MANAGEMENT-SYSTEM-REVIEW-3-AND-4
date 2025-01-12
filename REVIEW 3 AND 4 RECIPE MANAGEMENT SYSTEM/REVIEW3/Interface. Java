@@ -1,3 +1,100 @@
+package com.company;
+public class Main {
+public static void main(String[] args) {
+new Recipe();
+}
+}
+package com.company;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.*;
+import java.util.Vector;
+public class Recipe {
+private JTextField idData;
+private JTextField nameData;
+private JTextField ingriData;
+private JTable table1;
+private JButton ADDRECORDButton;
+private JButton UPDATERECORDButton;
+private JTextArea recipeData;
+private JComboBox typeData;
+private JPanel recipePanel;
+JFrame recipe = new JFrame();
+public Recipe(){
+recipe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+recipe.setContentPane(recipePanel);
+recipe.pack();
+recipe.setLocationRelativeTo(null);
+recipe.setSize(600,500);
+recipe.setVisible(true);
+tableData();
+ADDRECORDButton.addActionListener(new ActionListener() {
+@Override
+public void actionPerformed(ActionEvent e) {
+if(idData.getText().equals("")|| nameData.getText().equals("")||recipeData.getText().equals("")|| ingriData.getText().equals("")){
+JOptionPane.showMessageDialog(null,"Please Fill All Fields to add Record.");
+}else{
+try {
+String sql = "insert into recipe"+"(ID,NAME,TYPE,INGREDIENTS,RECIPE)"+"values (?,?,?,?,?)";
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/intern","root","root");
+PreparedStatement statement = connection.prepareStatement(sql);
+//
+statement.setInt(1,Integer.parseInt(idData.getText()));
+statement.setString(2, nameData.getText());
+statement.setString(3, ""+typeData.getSelectedItem());
+statement.setString(4,ingriData.getText());
+statement.setString(5,recipeData.getText());
+statement.executeUpdate();
+JOptionPane.showMessageDialog(null,"ITEM ADDED SUCCESSFULLY");
+idData.setText("");
+nameData.setText("");
+recipeData.setText("");
+ingriData.setText("");
+}catch (Exception ex){
+JOptionPane.showMessageDialog(null,ex.getMessage());
+}
+tableData();
+}
+}
+});
+UPDATERECORDButton.addActionListener(new ActionListener() {
+@Override
+public void actionPerformed(ActionEvent e) {
+try{
+String sql = "UPDATE recipe " +
+"SET NAME = '"+ nameData.getText()+"',TYPE='"+ typeData.getSelectedItem()+
+"',INGREDIENTS='"+ingriData.getText()+"',RECIPE='"+recipeData.getText()+"'" +
+" WHERE ID="+Integer.parseInt(idData.getText());
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/intern","root","root");
+PreparedStatement statement = connection.prepareStatement(sql);
+statement.executeUpdate();
+JOptionPane.showMessageDialog(null,"Updated successfully");
+}catch (Exception e2){
+System.out.println(e2);
+}
+tableData();
+}
+});
+table1.addMouseListener(new MouseAdapter() {
+@Override
+public void mouseClicked(MouseEvent e) {
+DefaultTableModel dm = (DefaultTableModel)table1.getModel();
+int selectedRow = table1.getSelectedRow();
+idData.setText(dm.getValueAt(selectedRow,0).toString());
+nameData.setText(dm.getValueAt(selectedRow,1).toString());
+recipeData.setText(dm.getValueAt(selectedRow,4).toString());
+ingriData.setText(dm.getValueAt(selectedRow,3).toString());
+}
+});
+}
+public void tableData() {
+try{
 String a= "Select* from recipe";
 Class.forName("com.mysql.cj.jdbc.Driver");
 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/intern","root","root");
