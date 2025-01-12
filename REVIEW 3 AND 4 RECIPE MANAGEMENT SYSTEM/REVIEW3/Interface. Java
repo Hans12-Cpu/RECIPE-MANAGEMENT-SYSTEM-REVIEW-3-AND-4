@@ -1,0 +1,32 @@
+String a= "Select* from recipe";
+Class.forName("com.mysql.cj.jdbc.Driver");
+Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/intern","root","root");
+Statement statement = connection.createStatement();
+ResultSet rs = statement.executeQuery(a);
+// table1.setModel(new DefaultTableModel(null, new String[]{"ID", "ITEM NAME", "QUANTITY", "PRICE"}));
+table1.setModel(buildTableModel(rs));
+}catch (Exception ex1){
+JOptionPane.showMessageDialog(null,ex1.getMessage());
+}
+}
+public static DefaultTableModel buildTableModel(ResultSet rs)
+throws SQLException {
+ResultSetMetaData metaData = rs.getMetaData();
+// names of columns
+Vector<String> columnNames = new Vector<String>();
+int columnCount = metaData.getColumnCount();
+for (int column = 1; column <= columnCount; column++) {
+columnNames.add(metaData.getColumnName(column));
+}
+// data of the table
+Vector<Vector<Object>> data = new Vector<Vector<Object>>();
+while (rs.next()) {
+Vector<Object> vector = new Vector<Object>();
+for (int columnIndex = 1; columnIndex <= columnCount; columnIndex++) {
+vector.add(rs.getObject(columnIndex));
+}
+data.add(vector);
+}
+return new DefaultTableModel(data, columnNames);
+}
+}
